@@ -1,0 +1,6 @@
+[submodule "hardware/config"]
+	path = hardware/config
+	url = https://github.com/Snoobdog10x/config
+[submodule "software/config"]
+	path = software/config
+	url = https://github.com/Snoobdog10x/config
