@@ -4,3 +4,9 @@
 [submodule "software/config"]
 	path = software/config
 	url = https://github.com/Snoobdog10x/config
+[submodule "software/lib/shared_product"]
+	path = software/lib/shared_product
+	url = https://github.com/Snoobdog10x/shared_product.git
+[submodule "software/lib/abstract"]
+	path = software/lib/abstract
+	url = https://github.com/Snoobdog10x/abstract.git
