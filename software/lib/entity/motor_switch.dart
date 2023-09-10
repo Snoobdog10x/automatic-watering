@@ -1,55 +1,65 @@
 
 import 'dart:convert';
-import '../abstract/abstract.dart';
+import '../shared_product/functional/date_time_helper.dart';
 
-ActionState { USER_REQUEST_ACTION, HARDWARE_CONFIRM }
-class MotorSwitch extends AbstractEntity {
+enum ActionState { USER_REQUEST_ACTION, HARDWARE_CONFIRM }
+class MotorSwitch with DateTimeHelper {
   static const String MOTOR_SWITCH = 'motor_switch';
   static const String IS_ON = 'is_on';
   static const String ACTION_STATE = 'action_state';
+  static const String DELETED = "deleted";
+  static const String CREATED_AT = "created_at";
+  static const String UPDATED_AT = "updated_at";
+  static const String DELETED_AT = "deleted_at";
   
   bool isOn = false;
   String actionState = '';
+  bool deleted = false;
+  DateTime createdAt = DateTime.now();
+  DateTime updatedAt = DateTime.now();
+  DateTime deletedAt = DateTime.now();
   
-  UserInformation({
-    super.id,
-    bool? is_on,
-    String? action_state,
-    super.deleted,
-    super.createdAt,
-    super.updatedAt,
-    super.deletedAt,
+  MotorSwitch({
+    bool? isOn,
+    String? actionState,
+    bool? deleted,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    DateTime? deletedAt,
   }) {
+    var now = DateTime.now();
     if (isOn != null) this.isOn = isOn;
     if (actionState != null) this.actionState = actionState;
+    this.deleted = deleted ?? false;
+    this.createdAt = createdAt ?? now;
+    this.updatedAt = updatedAt ?? now;
+    this.deletedAt = deletedAt ?? now;
   }
-
-  UserInformation.fromJson(Map json) {
+  
+  MotorSwitch.fromJson(Map json) {
     fromJson(json);
   }
-
-  UserInformation.fromJsonString(String jsonString) {
+  
+  MotorSwitch.fromJsonString(String jsonString) {
     Map json = jsonDecode(jsonString);
     fromJson(json);
   }
-
-  @override
+  
   void fromJson(Map json) {
-    super.fromJson(json);
     isOn = json[IS_ON];
     actionState = json[ACTION_STATE];
+    deleted = json[DELETED];
+    createdAt = stringToDate(json[CREATED_AT]);
+    updatedAt = stringToDate(json[UPDATED_AT]);
+    deletedAt = stringToDate(json[DELETED_AT]);
   }
-
-  @override
+  
   Map toJson() => {
-        ...super.toJson(),
         IS_ON: isOn,
         ACTION_STATE: actionState,
+        DELETED: deleted,
+        CREATED_AT: dateToString(createdAt),
+        UPDATED_AT: dateToString(updatedAt),
+        DELETED_AT: dateToString(deletedAt),
       };
-
-  @override
-  bool operator ==(Object other) =>
-      other is MotorSwitch &&
-      other.runtimeType == runtimeType &&
-      other.id == id;
 }

@@ -1,39 +1,43 @@
 
 import 'dart:convert';
-import '../abstract/abstract.dart';
-import 'motor_switch.dart'
+import '../shared_product/functional/date_time_helper.dart';
 
-class UserInformation extends AbstractEntity {
-  static const String USER_INFORMATION = 'user_information';
-  static const String MOTOR_SWITCH = 'motor_switch';
+
+class UserInformation with DateTimeHelper {
+  static const String ID = "id";
   static const String USER_INFORMATION = 'user_information';
   static const String NAME = 'name';
   static const String AVATAR = 'avatar';
-  static const String DATA = 'data';
+  static const String DELETED = "deleted";
+  static const String CREATED_AT = "created_at";
+  static const String UPDATED_AT = "updated_at";
+  static const String DELETED_AT = "deleted_at";
   
-  MotorSwitch motorSwitch = MotorSwitch();
-  Map<String,UserInformation> userInformation = {};
+  String id = "";
   String name = '';
   String avatar = '';
-  Map<String,String> data = {};
+  bool deleted = false;
+  DateTime createdAt = DateTime.now();
+  DateTime updatedAt = DateTime.now();
+  DateTime deletedAt = DateTime.now();
   
   UserInformation({
-    super.id,
-    MotorSwitch? motor_switch,
-    Map<String,UserInformation>? user_information,
+    String? id,
     String? name,
     String? avatar,
-    Map<String,String>? data,
-    super.deleted,
-    super.createdAt,
-    super.updatedAt,
-    super.deletedAt,
+    bool? deleted,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    DateTime? deletedAt,
   }) {
-    if (motorSwitch != null) this.motorSwitch = motorSwitch;
-    if (userInformation != null) this.userInformation = userInformation;
+    var now = DateTime.now();
+    this.id = id ?? "";
     if (name != null) this.name = name;
     if (avatar != null) this.avatar = avatar;
-    if (data != null) this.data = data;
+    this.deleted = deleted ?? false;
+    this.createdAt = createdAt ?? now;
+    this.updatedAt = updatedAt ?? now;
+    this.deletedAt = deletedAt ?? now;
   }
 
   UserInformation.fromJson(Map json) {
@@ -45,20 +49,24 @@ class UserInformation extends AbstractEntity {
     fromJson(json);
   }
 
-  @override
   void fromJson(Map json) {
-    super.fromJson(json);
+    id = json[ID];
     name = json[NAME];
     avatar = json[AVATAR];
-    data = json[DATA];
+    deleted = json[DELETED];
+    createdAt = stringToDate(json[CREATED_AT]);
+    updatedAt = stringToDate(json[UPDATED_AT]);
+    deletedAt = stringToDate(json[DELETED_AT]);
   }
 
-  @override
   Map toJson() => {
-        ...super.toJson(),
+        ID: id,
         NAME: name,
         AVATAR: avatar,
-        DATA: data,
+        DELETED: deleted,
+        CREATED_AT: dateToString(createdAt),
+        UPDATED_AT: dateToString(updatedAt),
+        DELETED_AT: dateToString(deletedAt),
       };
 
   @override
@@ -66,4 +74,7 @@ class UserInformation extends AbstractEntity {
       other is UserInformation &&
       other.runtimeType == runtimeType &&
       other.id == id;
+      
+  @override
+  int get hashCode => id.hashCode;
 }

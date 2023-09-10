@@ -7,16 +7,16 @@ abstract mixin class  UserSignInRepository
     implements AbstractRepository<UserSignInInputEvent, UserSignInOutputEvent> {
     
   void requestUserSignIn(UserSignInInputEvent inputEvent) async {
-    UserSignInOutputEvent outputEvent = class_name%OutputEvent();
+    UserSignInOutputEvent outputEvent = UserSignInOutputEvent();
     try {
       
-      responseUserLogin(outputEvent);
+      responseUserSignIn(outputEvent);
     } on AbstractException catch (e) {
       outputEvent.exception = e;
-      responseUserLogin(outputEvent);
+      responseUserSignIn(outputEvent);
     } catch (e) {
       outputEvent.exception = UnCatchException(e.toString());
-      responseUserLogin(outputEvent);
+      responseUserSignIn(outputEvent);
     }
   }
 
