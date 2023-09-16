@@ -1,4 +1,5 @@
-# This is your main script.
+import time
 
 
-print("Hello, world!")
+while True:
+    pass

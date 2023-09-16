@@ -1,6 +1,4 @@
-
-import 'dart:convert';
-import '../shared_product/functional/date_time_helper.dart';
+part of entity;
 
 enum ActionState { USER_REQUEST_ACTION, HARDWARE_CONFIRM }
 class MotorSwitch with DateTimeHelper {

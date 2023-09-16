@@ -1,8 +1,7 @@
-
 import '../../abstract/abstract.dart';
-import 'login_widget.dart';
+import 'splash_widget.dart';
 
-class LoginBloc extends AbstractBloc<LoginState> {
+class SplashBloc extends AbstractBloc<SplashState> {
   @override
   void destroy() {
     // TODO: implement destroy

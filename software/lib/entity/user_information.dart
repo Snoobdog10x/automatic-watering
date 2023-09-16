@@ -1,6 +1,4 @@
-
-import 'dart:convert';
-import '../shared_product/functional/date_time_helper.dart';
+part of entity;
 
 
 class UserInformation with DateTimeHelper {
@@ -8,6 +6,7 @@ class UserInformation with DateTimeHelper {
   static const String USER_INFORMATION = 'user_information';
   static const String NAME = 'name';
   static const String AVATAR = 'avatar';
+  static const String EMAIL = 'email';
   static const String DELETED = "deleted";
   static const String CREATED_AT = "created_at";
   static const String UPDATED_AT = "updated_at";
@@ -16,6 +15,7 @@ class UserInformation with DateTimeHelper {
   String id = "";
   String name = '';
   String avatar = '';
+  String email = '';
   bool deleted = false;
   DateTime createdAt = DateTime.now();
   DateTime updatedAt = DateTime.now();
@@ -25,6 +25,7 @@ class UserInformation with DateTimeHelper {
     String? id,
     String? name,
     String? avatar,
+    String? email,
     bool? deleted,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -34,6 +35,7 @@ class UserInformation with DateTimeHelper {
     this.id = id ?? "";
     if (name != null) this.name = name;
     if (avatar != null) this.avatar = avatar;
+    if (email != null) this.email = email;
     this.deleted = deleted ?? false;
     this.createdAt = createdAt ?? now;
     this.updatedAt = updatedAt ?? now;
@@ -48,11 +50,14 @@ class UserInformation with DateTimeHelper {
     Map json = jsonDecode(jsonString);
     fromJson(json);
   }
+  
+  String writeToJson() => jsonEncode(toJson());
 
   void fromJson(Map json) {
     id = json[ID];
     name = json[NAME];
     avatar = json[AVATAR];
+    email = json[EMAIL];
     deleted = json[DELETED];
     createdAt = stringToDate(json[CREATED_AT]);
     updatedAt = stringToDate(json[UPDATED_AT]);
@@ -63,6 +68,7 @@ class UserInformation with DateTimeHelper {
         ID: id,
         NAME: name,
         AVATAR: avatar,
+        EMAIL: email,
         DELETED: deleted,
         CREATED_AT: dateToString(createdAt),
         UPDATED_AT: dateToString(updatedAt),

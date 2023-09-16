@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import '../../abstract/abstract.dart';
 import 'sign_in_bloc.dart';
@@ -11,17 +10,17 @@ class SignInWidget extends StatefulWidget {
 }
 
 class SignInState extends AbstractState<SignInWidget> {
-  SignInBloc bloc = SignInBloc();
-  
   @override
-  void onCreate() {
-  
-  }
+  SignInBloc initBloc() => SignInBloc();
 
   @override
-  void onReady() {
-   
-  }
+  SignInBloc get bloc => super.bloc as SignInBloc;
+
+  @override
+  void onCreate() {}
+
+  @override
+  void onReady() {}
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +29,13 @@ class SignInState extends AbstractState<SignInWidget> {
       body: buildBody(),
     );
   }
-  
+
   Widget buildBody() {
     return Container();
+  }
+
+  @override
+  void destroy() {
+    // TODO: implement destroy
   }
 }
