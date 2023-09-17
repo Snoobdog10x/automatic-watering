@@ -7,11 +7,13 @@ import '../../abstract/abstract.dart';
 part 'user_retrieve_input_event.dart';
 part 'user_retrieve_output_event.dart';
 
-abstract mixin class UserRetrieveRepository
-    implements
-        AbstractRepository<UserRetrieveInputEvent, UserRetrieveOutputEvent> {
-  void requestUserRetrieve(UserRetrieveInputEvent inputEvent) async {
-    final db = FirebaseFirestore.instance;
+class UserRetrieveRepository extends AbstractRepository<UserRetrieveInputEvent,
+    UserRetrieveOutputEvent> {
+  @override
+  void request(
+    UserRetrieveInputEvent inputEvent, {
+    void Function(UserRetrieveOutputEvent outputEvent)? callback,
+  }) async {
     UserRetrieveOutputEvent outputEvent = UserRetrieveOutputEvent();
     try {
       var userId = inputEvent.userId;
@@ -25,16 +27,13 @@ abstract mixin class UserRetrieveRepository
           .get();
 
       outputEvent.userInformation = UserInformation();
-      responseUserRetrieve(outputEvent);
+      callback?.call(outputEvent);
     } on AbstractException catch (e) {
       outputEvent.exception = e;
-      responseUserRetrieve(outputEvent);
+      callback?.call(outputEvent);
     } catch (e) {
       outputEvent.exception = UnCatchException(e.toString());
-      responseUserRetrieve(outputEvent);
+      callback?.call(outputEvent);
     }
   }
-
-  void responseUserRetrieve(UserRetrieveOutputEvent outputEvent);
-  void disposeUserRetrieveRepository() {}
 }

@@ -4,25 +4,22 @@ import '../../abstract/abstract.dart';
 part 'user_create_input_event.dart';
 part 'user_create_output_event.dart';
 
-abstract mixin class UserCreateRepository
-    implements AbstractRepository<UserCreateInputEvent, UserCreateOutputEvent> {
-    
-  void requestUserCreate(UserCreateInputEvent inputEvent) async {
+class UserCreateRepository extends AbstractRepository<UserCreateInputEvent, UserCreateOutputEvent> {
+  @override
+  void request(
+    UserCreateInputEvent inputEvent, {
+    void Function(UserCreateOutputEvent outputEvent)? callback,
+  }) async {
     UserCreateOutputEvent outputEvent = UserCreateOutputEvent();
     try {
-      
-      responseUserCreate(outputEvent);
+
+      callback?.call(outputEvent);
     } on AbstractException catch (e) {
       outputEvent.exception = e;
-      responseUserCreate(outputEvent);
+      callback?.call(outputEvent);
     } catch (e) {
       outputEvent.exception = UnCatchException(e.toString());
-      responseUserCreate(outputEvent);
+      callback?.call(outputEvent);
     }
-  }
-
-  void responseUserCreate(UserCreateOutputEvent outputEvent);
-  void disposeUserCreateRepository() {
-  
   }
 }

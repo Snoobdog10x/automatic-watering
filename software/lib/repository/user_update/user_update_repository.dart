@@ -4,25 +4,22 @@ import '../../abstract/abstract.dart';
 part 'user_update_input_event.dart';
 part 'user_update_output_event.dart';
 
-abstract mixin class UserUpdateRepository
-    implements AbstractRepository<UserUpdateInputEvent, UserUpdateOutputEvent> {
-    
-  void requestUserUpdate(UserUpdateInputEvent inputEvent) async {
+class UserUpdateRepository extends AbstractRepository<UserUpdateInputEvent, UserUpdateOutputEvent> {
+  @override
+  void request(
+    UserUpdateInputEvent inputEvent, {
+    void Function(UserUpdateOutputEvent outputEvent)? callback,
+  }) async {
     UserUpdateOutputEvent outputEvent = UserUpdateOutputEvent();
     try {
-      
-      responseUserUpdate(outputEvent);
+
+      callback?.call(outputEvent);
     } on AbstractException catch (e) {
       outputEvent.exception = e;
-      responseUserUpdate(outputEvent);
+      callback?.call(outputEvent);
     } catch (e) {
       outputEvent.exception = UnCatchException(e.toString());
-      responseUserUpdate(outputEvent);
+      callback?.call(outputEvent);
     }
-  }
-
-  void responseUserUpdate(UserUpdateOutputEvent outputEvent);
-  void disposeUserUpdateRepository() {
-  
   }
 }

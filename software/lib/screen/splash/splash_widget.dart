@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../abstract/abstract.dart';
+import '../../shared_product/widget/text_input.dart';
 import 'splash_bloc.dart';
 
 class SplashWidget extends StatefulWidget {
@@ -27,7 +28,9 @@ class SplashState extends AbstractState<SplashWidget> {
 
   @override
   void onReady() {
-    bloc.sendUserRetrieveEvent();
+    if (!appStore.isDebug) {
+      // bloc.sendUserRetrieveEvent();
+    }
   }
 
   @override
@@ -39,7 +42,38 @@ class SplashState extends AbstractState<SplashWidget> {
   }
 
   Widget buildBody() {
-    return Container();
+    if (appStore.isDebug) {
+      return buildDefaultScreen();
+    }
+
+    return buildSplashScreen();
+  }
+
+  Widget buildDefaultScreen() {
+    return Column(
+      children: [
+        TextInput(
+          hintText: 'email',
+        ),
+        TextInput(
+          hintText: 'password',
+        ),
+        SizedBox(
+          height: 40,
+          width: screenWidth,
+          child: TextButton(
+            onPressed: () {
+              // bloc.sendUserRetrieveEvent();
+            },
+            child: Text("login"),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget buildSplashScreen() {
+    return Container(child: CircularProgressIndicator(color: Colors.green));
   }
 
   @override
