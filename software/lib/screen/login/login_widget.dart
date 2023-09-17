@@ -17,6 +17,9 @@ class LoginState extends AbstractState<LoginWidget> {
   LoginBloc get bloc => super.bloc as LoginBloc;
 
   @override
+  bool get secure => false;
+
+  @override
   void onCreate() {}
 
   @override

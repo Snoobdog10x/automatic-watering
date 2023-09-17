@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "301585141445",
+    "firebase_url": "https://automatic-watering-aaa74-default-rtdb.firebaseio.com",
+    "project_id": "automatic-watering-aaa74",
+    "storage_bucket": "automatic-watering-aaa74.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:301585141445:android:f9bd54f863f207bd336aac",
+        "android_client_info": {
+          "package_name": "com.example.software"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeL4ikEr2ZOfkVyxsZNyi0ckb5ibN1iWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

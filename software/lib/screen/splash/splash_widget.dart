@@ -15,15 +15,19 @@ class SplashState extends AbstractState<SplashWidget> {
 
   @override
   SplashBloc get bloc => super.bloc as SplashBloc;
-  
+
   @override
-  void onCreate() {
-  
+  bool get secure => false;
+
+  @override
+  Future<void> onCreate() async {
+    await appStore.init();
+    ready();
   }
 
   @override
   void onReady() {
-   
+    bloc.sendUserRetrieveEvent();
   }
 
   @override
@@ -33,11 +37,11 @@ class SplashState extends AbstractState<SplashWidget> {
       body: buildBody(),
     );
   }
-  
+
   Widget buildBody() {
     return Container();
   }
-  
+
   @override
   void destroy() {
     // TODO: implement destroy
